@@ -1,0 +1,41 @@
+version: '3.5'
+networks:
+  backend:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
+volumes:
+  routes_protected_files:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: nfsvers=4,addr=10.10.10.250,rw
+      device: ":/NFS_VOL/HDD/routes_protected_files"
+
+services:
+  routes_protected_files:
+    #image: 10.1.0.50:7000/apipainelrenove:1.0
+    image: routesprotectedfiles:1.0
+    ports:
+      - 3005:3005
+    # environment:
+
+    #   - SERV_DB=192.0.0.227
+    #   - PORT_DB=1433
+    #   - USER_DB=sa
+    #   - PASS_DB=sqlrollback
+    #   - BASE_DB=dbHub
+    volumes:
+    - routes_protected_files:/usr/src/app
+    - /etc/localtime:/etc/localtime:ro
+    restart: always
+    networks:
+      - traefik_proxy
+    deploy:
+      labels:
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.redirect.entryPoint=https"
+      - "traefik.frontend.rule=Host:acalsls.acalhomecenter.com.br;PathPrefixStrip:/protected-routes"
+      - "traefik.enable=true"
+      - "traefik.port=3005"

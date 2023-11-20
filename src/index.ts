@@ -5,7 +5,7 @@ import { appRoutes } from "./interfaces/api/appRoutes";
 const App = () => {
   
   const app = express();
-  const port = 3000;
+  const port = 3005;
   
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());

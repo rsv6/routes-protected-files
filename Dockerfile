@@ -1,25 +1,22 @@
-FROM node:20.9.0
+# Usar uma imagem do Node.js como base
+FROM node:20.9.0-alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+# Definir o diretório de trabalho no container
+WORKDIR /app
 
-# Copiando arquivos de dependência
+# Copiar os arquivos de dependência e instalar as dependências
 COPY package*.json ./
 
-# Instalando as dependências
-RUN npm install 
+RUN npm install
 
-# Copiando os arquivos fonte para o contêiner
 COPY . .
 
-# Compilando o TypeScript para JavaScript
 RUN npm run build
 
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Expondo a porta que a API vai utilizar
+# Expor a porta que a aplicação vai utilizar
 EXPOSE 3005
 
-# Comando para iniciar a aplicação
+# Comando para iniciar a aplicação usando Nodemon
+# CMD ["npm", "run", "dev"]
+
 CMD [ "node", "dist/index.js" ]

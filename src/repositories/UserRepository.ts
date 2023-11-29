@@ -6,19 +6,17 @@ export class UserRepository implements IUser {
 
     async register(user: User): Promise<object> {
 
+        // register knex:
+        // new User(user.idRegister, user.email, user.password)
+
         try {
-            if (user.email == undefined || user.email == "") {
-    
-                return {
-                    result: "false",
-                    data: [],
-                    msg: "Register failed!!!"
-                };
-            }
+
+            // validar se foi registrado:
+            console.log("Passou por aqui");
             return {
                 result: "true",
-                data: {...new User(user.idRegister, user.email, user.password)},
-                msg: "User register with successfully!"
+                data: {},
+                msg: `User ${user.email} register with successfully!`
             };
         } catch (error) {
 

@@ -7,7 +7,7 @@ export interface IUserProps {
 }
 
 export interface IUser {
-  
+
     register(user: User): Promise<object>;
     
 }

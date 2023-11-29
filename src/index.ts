@@ -1,11 +1,17 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import { appRoutes } from "./interfaces/api/appRoutes";
+import { env } from  "../src/infra/setup/env";
 
 
 const App = () => {
   
   const app = express();
-  const port = 3000;
+  const PORT = env.port;
+
+  // console.log("PORT: ", PORT);
   
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
@@ -16,8 +22,8 @@ const App = () => {
   
   app.use(appRoutes());
   
-  app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 };
 

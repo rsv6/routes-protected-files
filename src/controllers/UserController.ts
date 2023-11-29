@@ -13,7 +13,7 @@ export class UserControler {
         const { email, password } = req.body;
 
         // valida campos: melhor usar 'zod':
-        if (!validateFields(email)) {
+        if (!validateFields(email) || !validateFields(password)) {
             return res.status(404).json({
                 result: "false",
                 data: [],

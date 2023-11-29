@@ -3,7 +3,6 @@ import { User } from "../models/User";
 
 export class UserRepository implements IUser {
     
-
     async register(user: User): Promise<object> {
 
         // register knex:
